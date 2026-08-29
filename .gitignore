@@ -1,0 +1,18 @@
+venv/
+.venv/
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Banco local
+*.db
+*.sqlite3
+
+# Editores
+.vscode/
+.idea/
