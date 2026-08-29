@@ -12,21 +12,19 @@ class Config:
     """Configuração comum a todos os ambientes."""
 
     SECRET_KEY = os.getenv("SECRET_KEY", "chave-insegura-apenas-para-aula")
+    
+    # CORREÇÃO: A string do MySQL precisa apontar para o servidor, não para um arquivo.
     SQLALCHEMY_DATABASE_URI = os.getenv(
-        "DATABASE_URL", f"sqlite:///{BASE_DIR / 'catalogo.db'}"
+        "DATABASE_URL", "mysql+pymysql://root:123456@localhost:3306/aeroporto"
     )
+    
     # Desligado por padrão desde o Flask-SQLAlchemy 3.x; mantido explícito
     # porque a turma vai ver esse nome em tutoriais antigos.
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     @classmethod
     def init_app(cls, app) -> None:
-        """Gancho de validação, chamado pela factory após `from_object`.
-
-        Existe porque `app.config.from_object()` recebe a *classe* e nunca a
-        instancia — validação escrita em `__init__` jamais seria executada.
-        """
-
+        """Gancho de validação, chamado pela factory após `from_object`."""
 
 class DevelopmentConfig(Config):
     DEBUG = True

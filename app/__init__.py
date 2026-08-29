@@ -17,11 +17,16 @@ def create_app(config_name: str | None = None) -> Flask:
     ma.init_app(app)
 
     from app import models  # noqa: F401
-    from app.routes._categoria_routes import categoria_bp
-    from app.routes._produto_routes import produto_bp
+    
+    # Importando os blueprints das novas entidades do sistema
+    from app.routes.aeronave_routes import aeronave_bp
+    from app.routes.passageiro_routes import passageiro_bp
+    from app.routes.voo_routes import voo_bp
 
-    app.register_blueprint(categoria_bp, url_prefix="/api/categorias")
-    app.register_blueprint(produto_bp, url_prefix="/api/produtos")
+    # Registrando as rotas
+    app.register_blueprint(aeronave_bp, url_prefix="/api/aeronaves")
+    app.register_blueprint(passageiro_bp, url_prefix="/api/passageiros")
+    app.register_blueprint(voo_bp, url_prefix="/api/voos")
 
     register_error_handlers(app)
 

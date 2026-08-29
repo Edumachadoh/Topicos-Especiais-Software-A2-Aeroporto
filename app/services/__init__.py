@@ -1,3 +1,3 @@
-from app.services import categoria_service, produto_service
+from app.services import voo_service, aeronave_service, passageiro_service
 
-__all__ = ["categoria_service", "produto_service"]
+__all__ = ["voo_service", "aeronave_service", "passageiro_service"]
