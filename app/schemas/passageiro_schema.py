@@ -8,7 +8,7 @@ class PassageiroSchema(ma.SQLAlchemyAutoSchema):
         load_instance = False
 
     id = fields.String(dump_only=True)
-    nome = fields.String(required=True, validate=validate.Length(min=2, max=100))
+    nome = fields.String(required=False, validate=validate.Length(min=2, max=100))
     # Validando o tamanho exato de 14 caracteres assumindo a máscara padrão XXX.XXX.XXX-XX
     cpf = fields.String(required=True, validate=validate.Length(equal=14))
 

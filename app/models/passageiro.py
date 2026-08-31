@@ -11,7 +11,7 @@ class Passageiro(db.Model):
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
     nome: Mapped[str] = mapped_column(String(100), nullable=False)
-    cpf: Mapped[str] = mapped_column(String(14), unique=True, nullable=False)
+    cpf: Mapped[str] = mapped_column(String(14), unique=True, nullable=True)
 
     voos: Mapped[list["Voo"]] = relationship(
         secondary="voo_passageiro",
