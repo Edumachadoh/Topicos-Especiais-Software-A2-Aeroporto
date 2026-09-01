@@ -74,14 +74,14 @@ def _garantir_voo_existe(voo_id: str) -> None:
         raise RegraDeNegocio(f"A voo com ID '{voo_id}' não existe no sistema.")
 
 
-def _garantir_assento_livre(
-    voo_id: str, assento: str, ignorar_id: str | None = None
-) -> None:
-    stmt = db.select(Passagem).where(
+def _garantir_assento_livre(voo_id: str, assento: str) -> None:
+    # onde dentro da table passagens
+    # nas passagens desse voo_id
+    # verificar se a passagem com aquele assento existe
+    assento_selecionado = db.select(Passagem).where(
         Passagem.voo_id == voo_id, Passagem.assento == assento
     )
-    if ignorar_id:
-        stmt = stmt.where(Passagem.id != ignorar_id)
-
-    if db.session.scalar(stmt) is not None:
+    # se o acento selecionado for encontrado
+    #ele não deixa pegar o acento
+    if db.session.scalar(assento_selecionado) is not None:
         raise RegraDeNegocio(f"O assento {assento} já está ocupado para este voo.")
