@@ -13,9 +13,9 @@ class Passageiro(db.Model):
     nome: Mapped[str] = mapped_column(String(100), nullable=False)
     cpf: Mapped[str] = mapped_column(String(14), unique=True, nullable=True)
 
-    voos: Mapped[list["Voo"]] = relationship(
-        secondary="voo_passageiro",
-        back_populates="passageiros",
+    passagens: Mapped[list["Passagem"]] = relationship(
+        back_populates="passageiro",
+        cascade="all, delete-orphan",
     )
 
     def __repr__(self) -> str:

@@ -1,6 +1,7 @@
 from app.schemas.aeronave_schema import aeronave_schema, aeronaves_schema
 from app.schemas.voo_schema import voo_schema, voos_schema
 from app.schemas.passageiro_schema import passageiro_schema, passageiros_schema
+from app.schemas.passagem_schema import passagem_schema, passagens_schema
 
 
 __all__ = [
@@ -9,5 +10,7 @@ __all__ = [
     "voos_schema",
     "voo_schema",
     "passageiros_schema",
-    "passageiro_schema"
+    "passageiro_schema",
+    "passagens_schema",
+    "passagem_schema"
 ]

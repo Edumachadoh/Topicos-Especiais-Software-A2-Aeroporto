@@ -22,11 +22,13 @@ def create_app(config_name: str | None = None) -> Flask:
     from app.routes.aeronave_routes import aeronave_bp
     from app.routes.passageiro_routes import passageiro_bp
     from app.routes.voo_routes import voo_bp
+    from app.routes.passagem_routes import passagem_bp
 
     # Registrando as rotas
     app.register_blueprint(aeronave_bp, url_prefix="/api/aeronaves")
     app.register_blueprint(passageiro_bp, url_prefix="/api/passageiros")
     app.register_blueprint(voo_bp, url_prefix="/api/voos")
+    app.register_blueprint(passagem_bp, url_prefix="/api/passagens")
 
     register_error_handlers(app)
 
