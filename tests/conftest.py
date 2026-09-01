@@ -29,27 +29,35 @@ def app():
 def client(app):
     return app.test_client()
 
-
 @pytest.fixture
-def categoria(client) -> dict:
+def passageiro(client) -> dict:
     resposta = client.post(
-        "/api/categorias",
-        json={"nome": "Eletrônicos", "descricao": "Tecnologia em geral"},
+        "/api/passageiros",
+        json={"nome": "João Silva", "cpf": "123.456.789-00"},
     )
     assert resposta.status_code == 201
     return resposta.get_json()
 
+# @pytest.fixture
+# def categoria(client) -> dict:
+#     resposta = client.post(
+#         "/api/categorias",
+#         json={"nome": "Eletrônicos", "descricao": "Tecnologia em geral"},
+#     )
+#     assert resposta.status_code == 201
+#     return resposta.get_json()
 
-@pytest.fixture
-def produto(client, categoria) -> dict:
-    resposta = client.post(
-        "/api/produtos",
-        json={
-            "nome": "Mouse Sem Fio",
-            "preco": 129.90,
-            "estoque": 35,
-            "categoria_id": categoria["id"],
-        },
-    )
-    assert resposta.status_code == 201
-    return resposta.get_json()
+
+# @pytest.fixture
+# def produto(client, categoria) -> dict:
+#     resposta = client.post(
+#         "/api/produtos",
+#         json={
+#             "nome": "Mouse Sem Fio",
+#             "preco": 129.90,
+#             "estoque": 35,
+#             "categoria_id": categoria["id"],
+#         },
+#     )
+#     assert resposta.status_code == 201
+#     return resposta.get_json()
