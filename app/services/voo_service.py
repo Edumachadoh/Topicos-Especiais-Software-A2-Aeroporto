@@ -5,9 +5,11 @@ from app.models.voo import Voo
 from app.models.aeronave import Aeronave
 
 
-def listar() -> list[Voo]:
+def listar(pagina: int = 1, por_pagina: int = 10, aeronave_id: str | None = None):
     stmt = db.select(Voo)
-    return list(db.session.scalars(stmt))
+    if aeronave_id:
+        stmt = stmt.where(Voo.aeronave_id == aeronave_id)
+    return db.paginate(stmt, page=pagina, per_page=por_pagina, error_out=False)
 
 
 def obter(voo_id: str) -> Voo:

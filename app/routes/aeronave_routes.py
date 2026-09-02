@@ -2,14 +2,20 @@ from flask import Blueprint, jsonify, request
 
 from app.schemas.aeronave_schema import aeronave_schema, aeronaves_schema
 from app.services import aeronave_service
+from app.utils.pagination import parametros_paginacao, serializar_paginacao
+
 
 aeronave_bp = Blueprint("aeronaves", __name__)
 
 
 @aeronave_bp.get("")
 def listar_aeronaves():
-    aeronaves = aeronave_service.listar()
-    return jsonify(aeronaves_schema.dump(aeronaves)), 200
+    pagina, por_pagina = parametros_paginacao()
+    paginacao = aeronave_service.listar(
+        pagina=pagina, por_pagina=por_pagina,
+        tipo=request.args.get("tipo"), modelo=request.args.get("modelo"),
+    )
+    return jsonify(serializar_paginacao(paginacao, aeronaves_schema)), 200
 
 
 @aeronave_bp.get("/<string:aeronave_id>")

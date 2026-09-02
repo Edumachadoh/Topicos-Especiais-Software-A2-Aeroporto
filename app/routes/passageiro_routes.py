@@ -2,14 +2,18 @@ from flask import Blueprint, jsonify, request
 
 from app.schemas.passageiro_schema import passageiro_schema, passageiros_schema
 from app.services import passageiro_service
+from app.utils.pagination import parametros_paginacao, serializar_paginacao
 
 passageiro_bp = Blueprint("passageiros", __name__)
 
 
 @passageiro_bp.get("")
 def listar_passageiros():
-    passageiros = passageiro_service.listar()
-    return jsonify(passageiros_schema.dump(passageiros)), 200
+    pagina, por_pagina = parametros_paginacao()
+    paginacao = passageiro_service.listar(
+        pagina=pagina, por_pagina=por_pagina, nome=request.args.get("nome"),
+    )
+    return jsonify(serializar_paginacao(paginacao, passageiros_schema)), 200
 
 
 @passageiro_bp.get("/<string:passageiro_id>")

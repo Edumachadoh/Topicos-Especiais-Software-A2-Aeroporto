@@ -4,9 +4,11 @@ from app.extensions import db
 from app.models.passageiro import Passageiro
 
 
-def listar() -> list[Passageiro]:
+def listar(pagina: int = 1, por_pagina: int = 10, nome: str | None = None):
     stmt = db.select(Passageiro).order_by(Passageiro.nome)
-    return list(db.session.scalars(stmt))
+    if nome:
+        stmt = stmt.where(Passageiro.nome.ilike(f"%{nome}%"))
+    return db.paginate(stmt, page=pagina, per_page=por_pagina, error_out=False)
 
 
 def obter(passageiro_id: str) -> Passageiro:

@@ -6,9 +6,13 @@ from app.models.passageiro import Passageiro
 from app.models.voo import Voo
 
 
-def listar() -> list[Passagem]:
+def listar(pagina: int = 1, por_pagina: int = 10, voo_id: str | None = None, passageiro_id: str | None = None):
     stmt = db.select(Passagem).order_by(Passagem.assento)
-    return list(db.session.scalars(stmt))
+    if voo_id:
+        stmt = stmt.where(Passagem.voo_id == voo_id)
+    if passageiro_id:
+        stmt = stmt.where(Passagem.passageiro_id == passageiro_id)
+    return db.paginate(stmt, page=pagina, per_page=por_pagina, error_out=False)
 
 
 def obter(passagem_id: str) -> Passagem:

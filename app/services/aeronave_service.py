@@ -4,9 +4,13 @@ from app.extensions import db
 from app.models.aeronave import Aeronave
 
 
-def listar() -> list[Aeronave]:
+def listar(pagina: int = 1, por_pagina: int = 10, tipo: str | None = None, modelo: str | None = None):
     stmt = db.select(Aeronave).order_by(Aeronave.modelo)
-    return list(db.session.scalars(stmt))
+    if tipo:
+        stmt = stmt.where(Aeronave.tipo == tipo)
+    if modelo:
+        stmt = stmt.where(Aeronave.modelo.ilike(f"%{modelo}%"))
+    return db.paginate(stmt, page=pagina, per_page=por_pagina, error_out=False)
 
 
 def obter(aeronave_id: str) -> Aeronave:
