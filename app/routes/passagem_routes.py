@@ -42,4 +42,4 @@ def atualizar_passagem(passagem_id: str):
 @passagem_bp.delete("/<string:passagem_id>")
 def remover_passagem(passagem_id: str):
     passagem_service.remover(passagem_id)
-    return "", 204
+    return "Passagem removida com sucesso", 204

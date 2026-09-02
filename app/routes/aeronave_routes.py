@@ -42,4 +42,4 @@ def atualizar_aeronave(aeronave_id: str):
 @aeronave_bp.delete("/<string:aeronave_id>")
 def remover_aeronave(aeronave_id: str):
     aeronave_service.remover(aeronave_id)
-    return "", 204
+    return "Aeronave removida com sucesso", 204

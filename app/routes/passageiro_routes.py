@@ -42,4 +42,4 @@ def atualizar_passageiro(passageiro_id: str):
 @passageiro_bp.delete("/<string:passageiro_id>")
 def remover_passageiro(passageiro_id: str):
     passageiro_service.remover(passageiro_id)
-    return "", 204
+    return "Passageiro removido com sucesso", 204

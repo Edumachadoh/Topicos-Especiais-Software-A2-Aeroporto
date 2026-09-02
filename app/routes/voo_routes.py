@@ -42,4 +42,4 @@ def atualizar_voo(voo_id: str):
 @voo_bp.delete("/<string:voo_id>")
 def remover_voo(voo_id: str):
     voo_service.remover(voo_id)
-    return "", 204
+    return "Voo removido com sucesso", 204
