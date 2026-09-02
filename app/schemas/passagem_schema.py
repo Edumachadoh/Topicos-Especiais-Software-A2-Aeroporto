@@ -14,12 +14,12 @@ class PassagemSchema(ma.SQLAlchemyAutoSchema):
     passageiro = fields.Nested(
         "PassageiroSchema", 
         dump_only=True, 
-        only=("id", "nome", "cpf")
+        only=("id", "nome", "cpf") # impede a referencia circular e não referencia a passagem
     )
     voo = fields.Nested(
         "VooSchema", 
         dump_only=True, 
-        only=("id",) 
+        only=("id",) # não referencia as aeronaves que tem voos
     )
 passagem_schema = PassagemSchema()
 passagens_schema = PassagemSchema(many=True)
